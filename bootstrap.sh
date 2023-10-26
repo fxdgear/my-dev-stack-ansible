@@ -12,25 +12,25 @@ fi
 # Define the GitHub repository URL and playbook file
 github_repo="https://github.com/fxdgear/my-dev-stack-ansible"
 playbook_file="dev-setup.yml"
-ansible-project-name="my-dev-stack-ansible"
+ansible_project_name="my-dev-stack-ansible" # Declare the variable here
 
 # Clone the GitHub repository or update it if it already exists
-if [ -d "my-dev-stack-ansible" ]; then
+if [ -d "$ansible_project_name" ]; then
 	echo "Updating the Ansible project..."
-	cd $ansible-project-name
+	cd "$ansible_project_name"
 	git pull
 else
 	echo "Cloning the Ansible project..."
-	git clone $github_repo $ansible-project-name
-	cd $ansible-project-name
+	git clone "$github_repo" "$ansible_project_name" # Use double quotes to handle spaces or special characters in URLs
+	cd "$ansible_project_name"
 fi
 
 # Run the Ansible playbook
 echo "Running the Ansible playbook..."
-ansible-playbook -i localhost, $playbook_file
+ansible-playbook -i localhost, "$playbook_file"
 
 # Clean up (optional)
 cd ..
-rm -rf $ansible-project-name
+rm -rf "$ansible_project_name"
 
 echo "Ansible setup complete."
