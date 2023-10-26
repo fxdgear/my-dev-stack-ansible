@@ -23,13 +23,13 @@
 
     - name: Add NeoVim PPA Unstable
       apt_repository:
-        repo: 'ppa:neovim-ppa/unstable -y'
+        repo: 'ppa:neovim-ppa/unstable'
         state: present
       when: ansible_distribution_version == '23.04'
     
     - name: Add NeoVim PPA Stable
       apt_repository:
-        repo: 'ppa:neovim-ppa/stable -y'
+        repo: 'ppa:neovim-ppa/stable'
         state: present
       when: ansible_distribution_version < '23.04'
 
