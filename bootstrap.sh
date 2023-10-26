@@ -12,17 +12,17 @@ fi
 # Define the GitHub repository URL and playbook file
 github_repo="https://github.com/fxdgear/my-dev-stack-ansible"
 playbook_file="dev-setup.yml"
-ansible-project="my-dev-stack-ansible"
+ansible-project-name="my-dev-stack-ansible"
 
 # Clone the GitHub repository or update it if it already exists
 if [ -d "my-dev-stack-ansible" ]; then
 	echo "Updating the Ansible project..."
-	cd $ansible-project
+	cd $ansible-project-name
 	git pull
 else
 	echo "Cloning the Ansible project..."
-	git clone $github_repo $ansible-project
-	cd $ansible-project
+	git clone $github_repo $ansible-project-name
+	cd $ansible-project-name
 fi
 
 # Run the Ansible playbook
@@ -31,6 +31,6 @@ ansible-playbook -i localhost, $playbook_file
 
 # Clean up (optional)
 cd ..
-rm -rf $ansible-project
+rm -rf $ansible-project-name
 
 echo "Ansible setup complete."
