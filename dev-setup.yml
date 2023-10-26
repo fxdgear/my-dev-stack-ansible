@@ -24,12 +24,15 @@
         name: python3-pip
         state: present
 
-    - name: Install useful Python packages
+    - name: Install useful Python packages system wide
       apt:
         name: "{{ item }}"
       with_items:
         - python3-virtualenv
-        - pyton3-ipython
+        - python3-ipython
+        - python3-poetry
+        - python3-black
+        - python3-pipx
 
     - name: Install Git
       apt:
