@@ -27,7 +27,7 @@ fi
 
 # Run the Ansible playbook
 echo "Running the Ansible playbook..."
-ansible-playbook -i localhost, "$playbook_file" --ask-become-pass
+ansible-playbook -i localhost, "$playbook_file" --ask-become-pass -vv
 # Clean up (optional)
 cd ..
 rm -rf "$ansible_project_name"
