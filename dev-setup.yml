@@ -18,13 +18,13 @@
       apt_repository:
         repo: 'ppa:neovim-ppa/unstable -y'
         state: present
-      when: ubuntu_version.stdout_lines[0] | version_compare('23.04', 'eq')
+      when: ubuntu_version.stdout_lines[0] | compare('>=', '23.04')
     
     - name: Add NeoVim PPA Stable
       apt_repository:
         repo: 'ppa:neovim-ppa/stable -y'
         state: present
-      when: ubuntu_version.stdout_lines[0] | version_compare('23.04', 'lt')
+      when: ubuntu_version.stdout_lines[0] | compare('<', '23.04')
 
     - name: Update APT package cache
       become: true
