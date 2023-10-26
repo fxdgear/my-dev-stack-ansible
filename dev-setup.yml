@@ -25,12 +25,11 @@
         state: present
 
     - name: Install useful Python packages
-      pip:
+      apt:
         name: "{{ item }}"
       with_items:
-        - neovim
-        - virtualenv
-        - ipython
+        - python3-virtualenv
+        - pyton3-ipython
 
     - name: Install Git
       apt:
