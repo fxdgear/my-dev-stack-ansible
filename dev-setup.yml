@@ -60,6 +60,7 @@
         - python3-virtualenv
         - python3-ipython
         - python3-poetry
+        - python3-neovim
         - black
         - pipx
 
