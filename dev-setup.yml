@@ -3,9 +3,9 @@
 - name: Provision Python development laptop
   hosts: localhost
   become: yes
-  become_method: sudo
   tasks:
     - name: Update APT package cache
+      become: true
       apt:
         update_cache: yes
 
