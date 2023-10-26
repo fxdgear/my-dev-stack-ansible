@@ -1,7 +1,9 @@
+
 ---
 - name: Provision Python development laptop
   hosts: localhost
   become: yes
+  become_user: nick
   tasks:
     - name: Update APT package cache
       apt:
