@@ -25,13 +25,13 @@
       apt_repository:
         repo: 'ppa:neovim-ppa/unstable -y'
         state: present
-      when: ansible_distribution_release == '23.04'
+      when: ansible_distribution_version == '23.04'
     
     - name: Add NeoVim PPA Stable
       apt_repository:
         repo: 'ppa:neovim-ppa/stable -y'
         state: present
-      when: ansible_distribution_release < '23.04'
+      when: ansible_distribution_version < '23.04'
 
     - name: Update APT package cache
       become: true
