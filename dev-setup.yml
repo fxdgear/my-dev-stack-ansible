@@ -69,13 +69,11 @@
         name: git
         state: present
 
-    
     - name: Install Fish Shell
       apt:
         name: fish
         state: present
 
     - name: Configure Starship
-      hosts: localhost
       roles:
         - role: starship
