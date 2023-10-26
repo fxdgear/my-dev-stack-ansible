@@ -3,7 +3,7 @@
 - name: Provision Python development laptop
   hosts: localhost
   become: yes
-  become_user: nick
+  become_method: sudo
   tasks:
     - name: Update APT package cache
       apt:
