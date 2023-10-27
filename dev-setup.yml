@@ -5,7 +5,6 @@
   become: yes
   vars:
     nerdfonts_users: [nick]
-    nerdfonts_mono: yes
     nerdfonts_fonts: 
       - fontname: 'AnonymousPro'
       - fontname: 'Arimo'
@@ -31,6 +30,7 @@
       - fontname: 'SourceCodePro'
       - fontname: 'SpaceMono'
       - fontname: 'Terminus'
+      - fontname: 'UbuntuMono'
       - fontname: 'Ubuntu'
   tasks:
     - name: Distribution
