@@ -2,8 +2,6 @@
 ---
 - name: Provision Python development laptop
   hosts: localhost
-  roles:
-    - andrewrothstein.starship
   become: yes
   tasks:
     - name: Distribution
@@ -77,3 +75,7 @@
       apt:
         name: fish
         state: present
+
+    - name: Starship
+      ansible.builtin.include_role:
+        name: bartdorlandt.starship
