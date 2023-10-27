@@ -112,9 +112,15 @@
 
     - name: Copy Fish aliases template
       template:
-        src: "templates/fish_aliases.j2"
+        src: "templates/aliases_fish.j2"
         dest: "{{ user_home }}/.config/fish/alises.fish"
       become: no  # Run as the current user, not as root
+
+    - name: Add fish alises to fish config
+      ansible.builtin.lineinfile:
+        path: "{{ user_home}}/.config/fish/config.fish"
+        line: "source ~/.config/fish/aliases.fish"
+        state: present
 
     - name: Install Starship
       include_tasks: starship.yml
