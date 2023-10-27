@@ -20,6 +20,7 @@
         state: absent
 
 - name: Ensure the .config/fish/config.fish file exists
+  become: no
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
     state: touch
@@ -28,6 +29,7 @@
     access_time: preserve
 
 - name: Fill the .config/fish/config.fish
+  become: no
   ansible.builtin.blockinfile:
     path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - starship.rs"
@@ -36,6 +38,7 @@
       starship init fish | source
 
 - name: Create the starship.toml
+  become: no
   block:
     - name: Ensure the ~/.config/ dir exists
       ansible.builtin.file:
