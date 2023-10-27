@@ -1,0 +1,27 @@
+---
+- name: Install Lazyvim
+  become: no
+  block:
+    - name: Check init.lua exists
+      stat:
+        path: "{{ user_home }}/.config/nvim/init.lua"
+      register: file_exists
+
+    - name: Check if require("config.lazy") is in init.lua
+      command: "cat {{ user_home }}/.config/nvim/init.lua  | grep -q config.lazy"
+      ignore_errors: yes
+      changed_when: false
+      register: line_exists
+
+    - name: Clone the lazyvim repo
+      git:
+       repo: https://github.com/LazyVim/starter
+       dest: "{{ user_home }}/.config/nvim"
+       clone: yes
+       update: yes
+      when: not file_exists.stat.exists or line_exists.failed
+
+    - name: Ensure the .git dir for the lazyvim starter is absent
+      ansible.builtin.file:
+          state: absent
+          path: "{{ user_home }}/.config/.nvim/.git/"

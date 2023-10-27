@@ -126,3 +126,6 @@
     - name: Install nerdfonts
       include_role:
         name: hurricanehrndz.nerdfonts
+    
+    - name: Install LazyVim 
+      include_tasks: lazyvim.yml
