@@ -21,10 +21,8 @@
 
 - name: Ensure the .config/fish/config.fish file exists
   become: no
-  environment:
-    HOME: "/home/nick"
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    path: "{{ user_home }}/.config/fish/config.fish"
     state: touch
     mode: 0600
     modification_time: preserve
@@ -35,7 +33,7 @@
   environment:
     HOME: "/home/nick"
   ansible.builtin.blockinfile:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    path: "{{ user_home }}/.config/fish/config.fish"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - starship.rs"
     block: |
       # Starship.rs
@@ -43,17 +41,15 @@
 
 - name: Create the starship.toml
   become: no
-  environment:
-    HOME: "/home/nick"
   block:
     - name: Ensure the ~/.config/ dir exists
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config"
+        path: "{{ user_home }}/.config"
         state: directory
         mode: 0750
     - name: Ensure the ~/.config/starship.toml file exists
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/starship.toml"
+        path: "{{ user_home }}/.config/starship.toml"
         state: touch
         mode: 0600
         modification_time: preserve
@@ -61,6 +57,6 @@
 
     - name: Fill the starship.toml
       ansible.builtin.blockinfile:
-        path: "{{ ansible_env.HOME }}/.config/starship.toml"
+        path: "{{ user_home }}/.config/starship.toml"
         block: |
           {{ starship_config }}
