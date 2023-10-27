@@ -3,6 +3,35 @@
 - name: Provision Python development laptop
   hosts: localhost
   become: yes
+  vars:
+    nerdfonts_users: [nick]
+    nerdfonts_mono: yes
+    nerdfonts_fonts: 
+      - fontname: 'AnonymousPro'
+      - fontname: 'Arimo'
+      - fontname: 'AurulentSansMono'
+      - fontname: 'BitstreamVeraSansMono'
+      - fontname: 'CodeNewRoman'
+      - fontname: 'Cousine'
+      - fontname: 'DejaVuSansMono'
+      - fontname: 'DroidSansMono'
+      - fontname: 'FantasqueSansMono'
+      - fontname: 'FiraCode'
+      - fontname: 'FiraMono'
+      - fontname: 'Go-Mono'
+      - fontname: 'Gohu'
+      - fontname: 'Hasklig'
+      - fontname: 'Inconsolata'
+      - fontname: 'Hack'
+      - fontname: 'Monoid'
+      - fontname: 'Mononoki'
+      - fontname: 'ProFont'
+      - fontname: 'ProggyClean'
+      - fontname: 'RobotoMono'
+      - fontname: 'SourceCodePro'
+      - fontname: 'SpaceMono'
+      - fontname: 'Terminus'
+      - fontname: 'Ubuntu'
   tasks:
     - name: Distribution
       debug: msg="{{ ansible_distribution }}"
@@ -78,3 +107,7 @@
 
     - name: Install Starship
       include: starship.yml
+    
+    - name: Install nerdfonts
+      include_role:
+        name: ansible-nerdfonts
