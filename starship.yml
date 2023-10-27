@@ -41,11 +41,13 @@
   become: no
   block:
     - name: Ensure the ~/.config/ dir exists
+      become: no
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config"
         state: directory
         mode: 0750
     - name: Ensure the ~/.config/starship.toml file exists
+      become: no
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/starship.toml"
         state: touch
@@ -54,6 +56,7 @@
         access_time: preserve
 
     - name: Fill the starship.toml
+      become: no
       ansible.builtin.blockinfile:
         path: "{{ ansible_env.HOME }}/.config/starship.toml"
         block: |
