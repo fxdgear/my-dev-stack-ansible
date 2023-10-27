@@ -104,6 +104,8 @@
         - pipx
         - ripgrep
         - flameshot
+        - bat
+        - exa
 
     - name: Run argcomplete registration command for pipx
       command: register-python-argcomplete --shell fish pipx >~/.config/fish/completions/pipx.fish
