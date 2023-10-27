@@ -76,6 +76,5 @@
         name: fish
         state: present
 
-    - name: Starship
-      ansible.builtin.include_role:
-        name: bartdorlandt.starship
+    - name: Install Starship
+      include: starship.yml
