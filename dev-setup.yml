@@ -63,6 +63,8 @@
         - python3-neovim
         - black
         - pipx
+        - ripgrep
+        - flameshot
 
     - name: Install Git
       apt:
