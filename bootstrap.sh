@@ -25,6 +25,14 @@ else
 	cd "$ansible_project_name"
 fi
 
+# Check if the requirements.yml file is found and install roles
+if [ -f "requirements.yml" ]; then
+	echo "Installing Ansible Galaxy roles from requirements.yml..."
+	ansible-galaxy install -r requirements.yml
+else
+	echo "No requirements.yml file found."
+fi
+
 # Run the Ansible playbook
 echo "Running the Ansible playbook..."
 ansible-playbook -i localhost, "$playbook_file" --ask-become-pass -v
