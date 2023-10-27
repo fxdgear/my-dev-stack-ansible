@@ -106,8 +106,8 @@
         state: present
 
     - name: Install Starship
-      include: starship.yml
+      include_tasks: starship.yml
     
     - name: Install nerdfonts
       include_role:
-        name: ansible-nerdfonts
+        name: hurricanehrndz.nerdfonts
