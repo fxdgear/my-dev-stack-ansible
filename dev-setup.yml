@@ -71,6 +71,11 @@
       apt:
         name: python3
         state: present
+    
+    - name: Install Git
+      apt:
+        name: git
+        state: present
 
     - name: Install Neovim
       apt:
@@ -80,6 +85,11 @@
     - name: Install Python package manager (pip)
       apt:
         name: python3-pip
+        state: present
+    
+    - name: Install Fish Shell
+      apt:
+        name: fish
         state: present
 
     - name: Install useful Python packages system wide
@@ -95,15 +105,16 @@
         - ripgrep
         - flameshot
 
-    - name: Install Git
-      apt:
-        name: git
-        state: present
+    - name: Run argcomplete registration command for pipx
+      command: register-python-argcomplete --shell fish pipx >~/.config/fish/completions/pipx.fish
+      args:
+        creates: "~/.config/fish/completions/pipx.fish"
 
-    - name: Install Fish Shell
-      apt:
-        name: fish
-        state: present
+    - name: Copy Fish aliases template
+      template:
+        src: "templates/fish_aliases.j2"
+        dest: "{{ user_home }}/.config/fish/alises.fish"
+      become: no  # Run as the current user, not as root
 
     - name: Install Starship
       include_tasks: starship.yml

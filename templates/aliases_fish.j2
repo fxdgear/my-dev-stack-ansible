@@ -1,0 +1,38 @@
+## Aliases for exa which is a better alternative to the command `ls`
+# Define TREE_IGNORE as an environment variable
+set -x TREE_IGNORE "cache|log|logs|node_modules|vendor"
+
+# Define a Fish function for ls
+function ls
+    exa --group-directories-first --icons $argv
+end
+
+# Define additional Fish functions
+function la
+    ls -a $argv
+end
+
+function ll
+    ls -la --git --header
+end
+
+# Define lt with the TREE_IGNORE environment variable
+function lt
+    ls --tree -L 2 -I $TREE_IGNORE $argv
+end
+
+function ltt
+    ls --tree -L 3 -I $TREE_IGNORE $argv
+end
+
+function lttt
+    ls --tree -L 4 -I $TREE_IGNORE $argv
+end
+
+function ltttt
+    ls --tree -L 5 -I $TREE_IGNORE $argv
+end
+
+## Aliases for bat
+#
+alias c 'bat --paging=never -p'
