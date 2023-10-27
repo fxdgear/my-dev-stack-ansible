@@ -30,6 +30,8 @@
 
 - name: Fill the .config/fish/config.fish
   become: no
+  environment:
+    HOME: "/home/nick"
   ansible.builtin.blockinfile:
     path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - starship.rs"
