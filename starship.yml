@@ -21,6 +21,8 @@
 
 - name: Ensure the .config/fish/config.fish file exists
   become: no
+  environment:
+    HOME: "/home/nick"
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
     state: touch
