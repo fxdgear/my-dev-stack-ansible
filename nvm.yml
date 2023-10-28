@@ -9,3 +9,7 @@
   shell: >
     /bin/bash -c "source {{ user_home }}.nvm/nvm.sh && nvm install latest"
     creates={{ user_home }}/.nvm/alias
+
+- name: setup nvm
+  become: no
+  command: "fisher install jorgebucaran/nvm.fish"
