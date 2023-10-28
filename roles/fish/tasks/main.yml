@@ -8,9 +8,11 @@
   register: fisher_file
 
 - name: Install Fisher
+  become: yes
+  become_user: "{{ user.name }}"
   shell: "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
   args:
-    executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
+    executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
   when: not fisher_file.stat.exists
 
 - name: Install Fisher Plugins
