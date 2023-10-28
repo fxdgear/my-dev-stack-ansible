@@ -32,6 +32,7 @@
   roles:
     - common
     - fish
+
   tasks:
     - name: Distribution
       debug: msg="{{ ansible_distribution }}"
@@ -114,10 +115,6 @@
         path: "{{ user_home}}/.config/fish/config.fish"
         line: "source ~/.config/fish/aliases.fish"
         state: present
-
-    - name: Install fisher
-      become : no
-      command: curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 
     - name: Install Starship
       include_tasks: starship.yml
