@@ -1,10 +1,7 @@
 ---
-- name: install depends first
-  apt: name=python-apt state=present update_cache=yes
-
 - name: install fish repo
   apt_repository:
-    repo="deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /"
+    repo="deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_12/ /"
     filename="fish"
     state=present
     update_cache=yes
@@ -12,7 +9,7 @@
 
 - name: install fish repo
   apt_repository:
-    repo="ppa:fish-shell/release-2"
+    repo="ppa:fish-shell/release-3"
     state=present
     update_cache=yes
   when: ansible_distribution == "Ubuntu"
