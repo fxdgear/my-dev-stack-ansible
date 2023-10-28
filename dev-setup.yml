@@ -4,6 +4,8 @@
   hosts: localhost
   become: yes
   vars:
+    user.home: "{{user_home}}"
+    user.name: nick
     nerdfonts_users: [nick]
     nerdfonts_fonts: 
       - fontname: 'AnonymousPro'
@@ -26,6 +28,9 @@
       - fontname: 'Terminus'
       - fontname: 'UbuntuMono'
       - fontname: 'Ubuntu'
+  roles:
+    - abaez.common
+    - abaez.fish
   tasks:
     - name: Distribution
       debug: msg="{{ ansible_distribution }}"
@@ -34,15 +39,11 @@
     - name: Distribution major version
       debug: msg="{{ ansible_distribution_major_version }}"
 
+
     - name: Get Ubuntu Version
       command: lsb_release -r -s
       register: ubuntu_version
       changed_when: false
-
-    - name: Add Fish PPA
-      apt_repository:
-        repo: 'ppa:fish-shell/release-3'
-        state: present
 
     - name: Add NeoVim PPA Unstable
       apt_repository:
@@ -81,11 +82,6 @@
         name: python3-pip
         state: present
     
-    - name: Install Fish Shell
-      apt:
-        name: fish
-        state: present
-
     - name: Install useful Python packages system wide
       apt:
         name: "{{ item }}"
