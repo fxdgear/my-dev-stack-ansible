@@ -14,7 +14,10 @@
   when: not fisher_file.stat.exists
 
 - name: Install Fisher Plugins
+  become: no
   shell: "fisher install {{ item.plugin_name }}"
+  args:
+    executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
   with_items: "{{ fisher_plugins }}"
 
 - name: change the shell to fish
