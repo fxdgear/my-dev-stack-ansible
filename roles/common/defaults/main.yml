@@ -1,0 +1,14 @@
+---
+other_depend:
+  - curl
+  - wget
+  - vim
+  - tmux
+  - ncat
+  - strace
+  - jq
+
+vcs:
+  - mercurial
+  - git
+  - subversion

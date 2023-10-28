@@ -1,0 +1,21 @@
+---
+- name: Check for updates
+  apt:
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: Upgrade all the packages
+  become: yes
+  command: apt-get -y upgrade
+
+- name: install basic depends
+  apt: name={{ item }} state=present
+  when: item != "ncat"
+  with_items: "{{ other_depend }}"
+
+- name: Install Version Control
+  apt: name={{ item }} state=present
+  with_items: "{{ vcs }}"
+
+- name: Install build dependencies
+  apt: name=build-essential state=present

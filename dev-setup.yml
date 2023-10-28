@@ -30,7 +30,7 @@
       - fontname: 'UbuntuMono'
       - fontname: 'Ubuntu'
   roles:
-    - abaez.common
+    - common
     - abaez.fish
   tasks:
     - name: Distribution

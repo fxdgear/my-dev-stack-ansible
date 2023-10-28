@@ -1,0 +1,5 @@
+---
+
+- name: Use the os of power!
+  include: "os_family/{{ ansible_os_family }}.yml"
+
