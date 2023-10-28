@@ -41,3 +41,6 @@ cd ..
 rm -rf "$ansible_project_name"
 
 echo "Ansible setup complete."
+
+# source fish config to refresh.
+fish --command="source ~/.config/fish/config.fish"

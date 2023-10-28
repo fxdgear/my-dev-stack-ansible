@@ -109,7 +109,7 @@
     - name: Copy Fish aliases template
       template:
         src: "templates/aliases_fish.j2"
-        dest: "{{ user_home }}/.config/fish/alises.fish"
+        dest: "{{ user_home }}/.config/fish/aliases.fish"
       become: no  # Run as the current user, not as root
 
     - name: Add fish alises to fish config
