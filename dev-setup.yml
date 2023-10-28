@@ -4,8 +4,9 @@
   hosts: localhost
   become: yes
   vars:
-    user.home: "{{user_home}}"
-    user.name: nick
+    user:
+      name: "nick"
+      home: "{{user_home}}"
     nerdfonts_users: [nick]
     nerdfonts_fonts: 
       - fontname: 'AnonymousPro'
