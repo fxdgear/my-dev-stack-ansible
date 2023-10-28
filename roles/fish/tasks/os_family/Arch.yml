@@ -1,0 +1,6 @@
+---
+- name: install fish and dependencies
+  pacman: name={{ item }} state=latest
+  with_items:
+    - fish
+
