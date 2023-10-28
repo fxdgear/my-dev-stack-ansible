@@ -4,7 +4,7 @@
 
 - name: Check if Fisher is already installed
   stat:
-    path: "{{ user_home }}/.config/fish/functions/fisher.fish"
+    path: "{{ user.home }}/.config/fish/functions/fisher.fish"
   register: fisher_file
 
 - name: Install Fisher
