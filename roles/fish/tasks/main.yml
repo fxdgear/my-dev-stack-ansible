@@ -2,10 +2,17 @@
 - name: installing os centric piece first
   include: "os_family/{{ ansible_os_family }}.yml"
 
+- name: Check if Fisher is already installed
+  stat:
+    path: "{{ user_home }}/.config/fish/functions/fisher.fish"
+  register: fisher_file
+
 - name: Install Fisher
   shell: "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
   args:
     executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
+  when: not fisher_file.stat.exists
+
 
 - name: change the shell to fish
   user:
