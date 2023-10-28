@@ -30,7 +30,7 @@
   args:
     executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
   loop: "{{ fisher_plugins }}"
-  when: "'{{ item }}' not in installed_plugins.stdout_lines"
+  when: "not '{{item|lower}}' in installed_plugins.stdout_lines"
 
 - name: Remove plugins not in the desired list
   become: yes
@@ -38,8 +38,8 @@
   shell: "fisher remove {{ item }}"
   args:
     executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
-  loop: "{{ installed_plugins.stdout_lines | difference(fisher_plugins) }}"
-  when: installed_plugins.stdout_lines | difference(fisher_plugins) | length > 0
+  loop: "{{ installed_plugins.stdout_lines|map('lower')|difference(fisher_plugins|map('lower')) }}"
+  when: installed_plugins.stdout_lines|map('lower')|difference(fisher_plugins|map('lower'))|length > 0
 
 - name: change the shell to fish
   user:
