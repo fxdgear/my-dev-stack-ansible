@@ -5,8 +5,8 @@
   become: yes
   vars:
     user:
-      name: "nick"
-      home: "{{user_home}}"
+      name: "{{ user_name }}"
+      home: "{{ user_home }}"
     fisher_plugins: 
       - plugin_name: jorgebucaran/autopair.fish
       - plugin_name: PatrickF1/fzf.fish
