@@ -18,7 +18,7 @@
   become_user: "{{ user.name }}"
   shell: "fisher install {{ item.plugin_name }}"
   args:
-    executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
+    executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
   with_items: "{{ fisher_plugins }}"
 
 - name: change the shell to fish
