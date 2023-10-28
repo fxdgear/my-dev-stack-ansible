@@ -15,13 +15,31 @@
     executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
   when: not fisher_file.stat.exists
 
-- name: Install Fisher Plugins
+- name: Get the list of installed Fisher plugins
   become: yes
   become_user: "{{ user.name }}"
-  shell: "fisher install {{ item.plugin_name }}"
+  shell: "fisher list"
   args:
     executable: /usr/bin/fish  # Use /bin/fish for Fish shell-specific commands
-  with_items: "{{ fisher_plugins }}"
+  register: installed_plugins
+
+- name: Install missing plugins
+  become: yes
+  become_user: "{{ user.name }}"
+  shell: "fisher install {{ item }}"
+  args:
+    executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
+  loop: "{{ fisher_plugins }}"
+  when: "'{{ item }}' not in installed_plugins.stdout"
+
+- name: Remove plugins not in the desired list
+  become: yes
+  become_user: "{{ user.name }}"
+  shell: "fisher remove {{ item }}"
+  args:
+    executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
+  loop: "{{ installed_plugins.stdout_lines | difference(fisher_plugins) }}"
+  when: installed_plugins.stdout_lines | difference(fisher_plugins) | length > 0
 
 - name: change the shell to fish
   user:
