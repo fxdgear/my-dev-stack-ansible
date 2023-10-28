@@ -31,7 +31,7 @@
       - fontname: 'Ubuntu'
   roles:
     - common
-    - abaez.fish
+    - fish
   tasks:
     - name: Distribution
       debug: msg="{{ ansible_distribution }}"
