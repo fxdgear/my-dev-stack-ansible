@@ -127,3 +127,6 @@
     
     - name: Install LazyVim 
       include_tasks: lazyvim.yml
+    
+    - name: Install NVM and node 
+      include_tasks: nvm.yml

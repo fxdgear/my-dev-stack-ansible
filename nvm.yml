@@ -1,0 +1,9 @@
+---
+- name: Install nvm
+  shell: >
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
+    creates={{ user_home }}/.nvm/nvm.sh
+- name: Install node and set version
+  shell: >
+    /bin/bash -c "source {{ user_home }}.nvm/nvm.sh && nvm install latest"
+    creates={{ user_home }}/.nvm/alias
