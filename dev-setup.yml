@@ -7,6 +7,10 @@
     user:
       name: "nick"
       home: "{{user_home}}"
+    fisher_plugins: 
+      - plugin_name: 'jorgebucaran/autopair.fish'
+      - plugin_name: 'PatrickF1/fzf.fish'
+
     nerdfonts_users: [nick]
     nerdfonts_fonts: 
       - fontname: 'AnonymousPro'

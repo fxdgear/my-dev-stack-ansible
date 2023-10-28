@@ -13,6 +13,9 @@
     executable: /bin/fish  # Use /bin/fish for Fish shell-specific commands
   when: not fisher_file.stat.exists
 
+- name: Install Fisher Plugins
+  shell: "fisher install {{ item.plugin_name }}"
+  with_items: "{{ fisher_plugins }}"
 
 - name: change the shell to fish
   user:
