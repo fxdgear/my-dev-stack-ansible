@@ -7,8 +7,22 @@ other_depend:
   - ncat
   - strace
   - jq
+  - ripgrep
+  - flameshot
+  - bat
+  - exa
 
 vcs:
   - mercurial
   - git
   - subversion
+
+python:
+  - python3
+  - python3-pip
+  - python3-virtualenv
+  - python3-ipython
+  - python3-poetry
+  - python3-neovim
+  - black
+  - pipx

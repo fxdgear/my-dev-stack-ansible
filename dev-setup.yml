@@ -40,6 +40,7 @@
     - common
     - fish
     - nvm
+    - lazyvim
 
   tasks:
     - name: Distribution
@@ -49,63 +50,15 @@
     - name: Distribution major version
       debug: msg="{{ ansible_distribution_major_version }}"
 
-
     - name: Get Ubuntu Version
       command: lsb_release -r -s
       register: ubuntu_version
       changed_when: false
 
-    - name: Add NeoVim PPA Unstable
-      apt_repository:
-        repo: 'ppa:neovim-ppa/unstable'
-        state: present
-      when: ansible_distribution_version == '23.04'
-    
-    - name: Add NeoVim PPA Stable
-      apt_repository:
-        repo: 'ppa:neovim-ppa/stable'
-        state: present
-      when: ansible_distribution_version < '23.04'
-
     - name: Update APT package cache
       become: true
       apt:
         update_cache: yes
-
-    - name: Install Python 3
-      apt:
-        name: python3
-        state: present
-    
-    - name: Install Git
-      apt:
-        name: git
-        state: present
-
-    - name: Install Neovim
-      apt:
-        name: neovim
-        state: present
-
-    - name: Install Python package manager (pip)
-      apt:
-        name: python3-pip
-        state: present
-    
-    - name: Install useful Python packages system wide
-      apt:
-        name: "{{ item }}"
-      with_items:
-        - python3-virtualenv
-        - python3-ipython
-        - python3-poetry
-        - python3-neovim
-        - black
-        - pipx
-        - ripgrep
-        - flameshot
-        - bat
-        - exa
 
     - name: Run argcomplete registration command for pipx
       command: register-python-argcomplete --shell fish pipx >~/.config/fish/completions/pipx.fish
@@ -130,6 +83,3 @@
     - name: Install nerdfonts
       include_role:
         name: hurricanehrndz.nerdfonts
-    
-    - name: Install LazyVim 
-      include_tasks: lazyvim.yml

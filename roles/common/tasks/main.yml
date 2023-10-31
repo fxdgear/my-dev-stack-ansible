@@ -3,3 +3,19 @@
 - name: Use the os of power!
   include: "os_family/{{ ansible_os_family }}.yml"
 
+- name: Add NeoVim PPA Unstable
+  apt_repository:
+    repo: 'ppa:neovim-ppa/unstable'
+    state: present
+  when: ansible_distribution_version == '23.04'
+
+- name: Add NeoVim PPA Stable
+  apt_repository:
+    repo: 'ppa:neovim-ppa/stable'
+    state: present
+  when: ansible_distribution_version < '23.04'
+
+- name: Install Neovim
+  apt:
+    name: neovim
+    state: present

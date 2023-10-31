@@ -17,5 +17,9 @@
   apt: name={{ item }} state=present
   with_items: "{{ vcs }}"
 
+- name: Install Python Tools
+  apt: name={{ item }} state=present
+  with_items: "{{ python }}"
+
 - name: Install build dependencies
   apt: name=build-essential state=present
