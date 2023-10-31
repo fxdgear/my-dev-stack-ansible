@@ -45,20 +45,15 @@
     - kubectl
 
   tasks:
-    - name: Check for WSL environment variable
-      ansible.builtin.shell: "echo $WSL_DISTRO_NAME"
-      register: wsl_distro_name
-      ignore_errors: yes
+    - name: Check if wsl.exe is on the PATH
+      command: "which wsl.exe"  # This will check if wsl.exe is on the PATH
+      register: wsl_check
+      ignore_errors: yes  # Ignore errors, as 'which' command will return an error if not found
 
-    - name: Notify WSL
-      debug:
-        msg: "This system is likely running WSL"
-      when: wsl_distro_name.stdout is defined
-
-    - name: Notify WSL
-      debug:
-        msg: "This system is not running WSL"
-      when: not wsl_distro_name.stdout is defined
+    - name: Set a fact to determine if the host is WSL
+      set_fact:
+        is_wsl: "{{ wsl_check.rc == 0 }}"
+      when: wsl_check is succeeded
 
     - name: Get Ubuntu Version
       command: lsb_release -r -s
@@ -108,4 +103,4 @@
           - py3status
           - nitrogen
           - xscreensaver
-      when: display_output.stdout != ""
+      when: (display_output.stdout != "") and not is_wsl
