@@ -11,6 +11,8 @@ other_depend:
   - flameshot
   - bat
   - exa
+  - apt-transport-https 
+  - ca-certificates
 
 vcs:
   - mercurial

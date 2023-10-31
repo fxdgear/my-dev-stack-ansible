@@ -41,6 +41,7 @@
     - fish
     - nvm
     - lazyvim
+    - kubectl
 
   tasks:
     - name: Distribution

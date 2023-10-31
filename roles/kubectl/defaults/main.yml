@@ -1,0 +1,58 @@
+---
+# The OS target for the binary.
+kubectl_os: "linux"
+
+# The version of the binary.
+kubectl_version: "latest"
+
+# The owner of the installed binary.
+kubectl_owner: "root"
+
+# The group of the installed binary.
+kubectl_group: "root"
+
+# The permissions on the installed binary.
+kubectl_mode: "0755"
+
+# The permissions on the installed binary.
+kubectl_bin_dir_mode: "0755"
+
+# The directory to install the binary in.
+kubectl_bin_dir: "/usr/local/share/kubectl"
+
+# The full path to the binary.
+kubectl_bin_path: "{{ kubectl_bin_dir }}/kubectl"
+
+# The symlink path created to the binary.
+kubectl_link_path: "/usr/local/bin/kubectl"
+
+# The URL to the repository.
+kubectl_repo_url: "https://dl.k8s.io"
+
+# The URL to the binary.
+kubectl_file_url: "{{ kubectl_repo_url }}/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_architecture }}/kubectl"
+
+# The URL to fetch the latest version from.
+kubectl_version_url: "https://dl.k8s.io/release/stable.txt"
+
+# The URL to the checksum of the binary.
+kubectl_checksum_url: "{{ kubectl_file_url }}.sha256"
+
+# The architecture target for the binary.
+kubectl_architecture: "{{ kubectl_architecture_map[ansible_architecture] }}"
+
+# The architecture map used to set the correct name according to the
+# repository file names.
+kubectl_architecture_map:
+  {
+    "aarch": "arm64",
+    "aarch64": "arm64",
+    "amd64": "amd64",
+    "arm64": "arm64",
+    "armhf": "armhf",
+    "armv7l": "armhf",
+    "ppc64le": "ppc64le",
+    "s390x": "s390x",
+    "x86_64": "amd64",
+  }
+

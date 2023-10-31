@@ -1,0 +1,67 @@
+---
+- name: Check if binary exists
+  ansible.builtin.stat:
+    path: "{{ kubectl_bin_path }}"
+  register: kubectl_bin
+
+- name: Get current version
+  ansible.builtin.command: "{{ kubectl_bin_path }} version"
+  failed_when: false
+  changed_when: false
+  register: kubectl_current_version
+
+- name: Get latest version
+  block:
+    - name: Get latest version
+      ansible.builtin.uri:
+        url: "{{ kubectl_version_url }}"
+        return_content: true
+      register: kubectl_latest_version
+
+    - name: Set latest version fact
+      ansible.builtin.set_fact:
+        kubectl_version: "{{ kubectl_latest_version.content | regex_replace('^v', '') }}"
+  when: kubectl_version == "latest"
+
+- name: Download file
+  block:
+    - name: Get checksum
+      ansible.builtin.uri:
+        url: "{{ kubectl_checksum_url }}"
+        return_content: yes
+      register: kubectl_checksum
+
+    - name: Set checksum fact
+      ansible.builtin.set_fact:
+        kubectl_checksum: "{{ kubectl_checksum.content }}"
+
+    - name: Ensure bin directory exists
+      ansible.builtin.file:
+        path: "{{ kubectl_bin_dir }}"
+        state: directory
+        owner: "{{ kubectl_owner }}"
+        group: "{{ kubectl_group }}"
+        mode: "{{ kubectl_bin_dir_mode }}"
+
+    - name: Download file
+      ansible.builtin.get_url:
+        url: "{{ kubectl_file_url }}"
+        dest: "{{ kubectl_bin_path }}"
+        checksum: "sha256:{{ kubectl_checksum }}"
+        force: true
+      register: kubectl_download
+  when: >
+    not kubectl_bin.stat.exists
+    or kubectl_version not in kubectl_current_version.stdout
+
+- name: Create symlink
+  ansible.builtin.file:
+    src: "{{ kubectl_bin_path }}"
+    dest: "{{ kubectl_link_path }}"
+    owner: "{{ kubectl_owner }}"
+    group: "{{ kubectl_group }}"
+    mode: "{{ kubectl_mode }}"
+    force: true
+    state: link
+  when: kubectl_download is changed
+
