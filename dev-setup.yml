@@ -12,6 +12,7 @@
       - 'PatrickF1/fzf.fish'
       - 'jorgebucaran/nvm.fish'
       - 'jorgebucaran/fisher'
+      - 'evanlucas/fish-kubectl-completions'
     node_versions:
       - v21.1.0
     nerdfonts_users: [nick]
