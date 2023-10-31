@@ -45,12 +45,20 @@
     - kubectl
 
   tasks:
-    - name: Distribution
-      debug: msg="{{ ansible_distribution }}"
-    - name: Distribution version
-      debug: msg="{{ ansible_distribution_version}}"
-    - name: Distribution major version
-      debug: msg="{{ ansible_distribution_major_version }}"
+    - name: Check for WSL environment variable
+      ansible.builtin.shell: "echo $WSL_DISTRO_NAME"
+      register: wsl_distro_name
+      ignore_errors: yes
+
+    - name: Notify WSL
+      debug:
+        msg: "This system is likely running WSL"
+      when: wsl_distro_name.stdout is defined
+
+    - name: Notify WSL
+      debug:
+        msg: "This system is not running WSL"
+      when: not wsl_distro_name.stdout is defined
 
     - name: Get Ubuntu Version
       command: lsb_release -r -s
@@ -85,3 +93,19 @@
     - name: Install nerdfonts
       include_role:
         name: hurricanehrndz.nerdfonts
+
+    - name: Check for the DISPLAY variable
+      ansible.builtin.shell: "echo $DISPLAY"
+      register: display_output
+      ignore_errors: yes
+
+    - name: Install I3 and related deps
+      apt:
+        pkg: 
+          - i3
+          - i3-lock
+          - albert
+          - py3status
+          - nitrogen
+          - xscreensaver
+      when: display_output.stdout != ""
