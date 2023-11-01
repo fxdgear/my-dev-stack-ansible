@@ -69,6 +69,7 @@
       command: register-python-argcomplete3 --shell fish pipx >~/.config/fish/completions/pipx.fish
       args:
         creates: "~/.config/fish/completions/pipx.fish"
+      when: false
 
     - name: Copy Fish aliases template
       template:
